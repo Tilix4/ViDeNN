@@ -42,13 +42,17 @@ class ViDeNN(object):
 		self.Y_frames = tf.placeholder(tf.float32, [None, None, None, 9],name='clean_frames')
 		self.Xframes = tf.placeholder(tf.float32, [None, None, None, 9],name='noisy_frames')
 		self.Yframes = Temp3CNN(self.Xframes)
-		init = tf.global_variables_initializer()
-		self.sess.run(init)
+		# init = tf.global_variables_initializer()
+		# self.sess.run(init)
 		print("[*] Initialize model successfully...")
 
-	def denoise(self, eval_files, eval_files_noisy, print_psnr, ckpt_dir, save_dir):
+	def denoise(self, sess, eval_files, eval_files_noisy, print_psnr, ckpt_dir, save_dir):
 		# init variables
-		tf.global_variables_initializer().run()
+		# sess = tf.Session()
+		# with sess.as_default():
+		init = tf.global_variables_initializer()
+		sess.run(init)
+		# tf.global_variables_initializer().run(self.sess)
 		assert len(eval_files) != 0, '[!] No testing data!'
 		if ckpt_dir is None:
 			full_path = tf.train.latest_checkpoint('./Temp3-CNN/ckpt')
@@ -77,7 +81,7 @@ class ViDeNN(object):
 		else:
 			load_model_status, _ = self.load(ckpt_dir)
 		print("[*] Model restore successfully!")
-#
+
 		psnr_sum = 0
 		start = time.time()
 		for idx in tqdm(range(len(eval_files)-1)):

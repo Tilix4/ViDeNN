@@ -32,7 +32,7 @@ If you intend to use your graphic card (GPU) to make the process faster, don't f
     - Using [ffmpeg](https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats): `ffmpeg -nostats -loglevel 0 -i /path/to/my/video /path/to/my/images/%04d.png`
 
 1. Run the denoiser: `python main_ViDeNN.py --use_gpu=1 --checkpoint_dir=ckpt_videnn --save_dir='/path/to/my/denoised_images' --test_dir='/path/to/my/images/'`
-    - `--use_gpy`: 
+    - `--use_gpu`: 
         - `0`: CPU (default)
         - `1`: GPU (faster but will be used only if the device has enough memory)
     - `--checkpoint_dir`: 
